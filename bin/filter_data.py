@@ -25,32 +25,12 @@ IshHistory = namedtuple(
         '''
         )
 
-WeatherRow = namedtuple(
-        'WeatherRow',
-        '''
-        station wban year month_day temp count dewp dewp_count slp slp_count
-        stp stp_count visibility vis_count wdsp wdsp_count max_wind_spd
-        max_gust max_temp max_from_hourly min_temp min_from_hourly
-        precipitation precip_source snow_depth rfshtt
-        '''
-        )
-
-
-def csv_tuples(fn, tuple_class):
-    """This reads the CSV file into tuple_class, skipping the front row. """
-    with open(fn, 'rb') as f:
-        for row in itertools.islice(csv.reader(f), 1, None):
-            yield tuple_class._make(row)
-
 
 def read_history(fn):
     """This reads the ish-history.csv file into a sequence of named tuples. """
-    return csv_tuples(fn, IshHistory)
-
-
-def read_weather_data(fn):
-    """This reads data files into a sequence of WeatherRow instances. """
-    return csv_tuples(fn, WeatherRow)
+    with open(fn, 'rb') as f:
+        for row in itertools.islice(csv.reader(f), 1, None):
+            yield IshHistory._make(row)
 
 
 def get_stations(history, country, state):
@@ -63,7 +43,7 @@ def get_stations(history, country, state):
     stations = set()
     for h in history:
         if h.country == country and h.state == state:
-            stations.add(h.usaf)
+            stations.add((h.usaf, h.wban))
     return stations
 
 
@@ -76,7 +56,7 @@ def main():
 
     for fn in glob.glob(os.path.join(DATADIR, '*.op')):
         basename = os.path.basename(fn)
-        station  = basename.split('-')[0]
+        station  = tuple(basename.split('-')[:2])
         if station in stations:
             shutil.copyfile(fn, os.path.join(STATE, basename))
 
