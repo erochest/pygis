@@ -15,7 +15,7 @@ from filter_data import HISTORY, COUNTRY, read_history
 DUMP   = True
 PERIOD = 30
 MONTH  = 6
-OUTPUT = 'output-us.tsv'
+OUTPUT = 'output-us.csv'
 
 
 WeatherRow = namedtuple(
@@ -38,8 +38,8 @@ def log(msg):
 def dump(filename, fields, data):
     if DUMP:
         log('\t>>> %s' % (filename,))
-        with open(filename + '.tsv', 'wb') as f:
-            w = csv.writer(f, 'excel-tab')
+        with open(filename + '.csv', 'wb') as f:
+            w = csv.writer(f)
             w.writerow(fields)
             w.writerows(data)
 
@@ -224,7 +224,7 @@ def write_diffs(diffs, station_locs, output_fn):
     """Output new data. """
     log('write_diffs')
     with open(output_fn, 'wb') as fout:
-        writer = csv.writer(fout, 'excel-tab')
+        writer = csv.writer(fout)
         writer.writerow(('station', 'lat', 'lon', 'delta-year', 'delta-temp'))
         writer.writerows(
                 output_row(d, station_locs[d[0]])
