@@ -9,7 +9,7 @@ import itertools
 import operator
 import os
 
-from filter_data import HISTORY, STATE, read_history
+from filter_data import HISTORY, COUNTRY, read_history
 
 
 DUMP   = True
@@ -243,7 +243,7 @@ def output_row(diff_item, lat_lon):
 def main():
     start = datetime.datetime.now()
 
-    weather      = read_month_data(STATE, MONTH)
+    weather      = read_month_data(COUNTRY, MONTH)
     month_avgs   = get_monthly_avgs(weather)
     avgs         = get_rolling_avgs(month_avgs, PERIOD)
     diffs        = get_avg_diffs(avgs)

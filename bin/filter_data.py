@@ -33,7 +33,7 @@ def read_history(fn):
             yield IshHistory._make(row)
 
 
-def get_stations(history, country, state):
+def get_stations(history, country):
     """\
     This takes a seq of IshHistory objects and returns a set of stations
     for the country and state.
@@ -42,23 +42,23 @@ def get_stations(history, country, state):
 
     stations = set()
     for h in history:
-        if h.country == country and h.state == state:
+        if h.country == country:
             stations.add((h.usaf, h.wban))
     return stations
 
 
 def main():
     history  = read_history(HISTORY)
-    stations = get_stations(history, COUNTRY, STATE)
+    stations = get_stations(history, COUNTRY)
 
-    if not os.path.exists(STATE):
-        os.makedirs(STATE)
+    if not os.path.exists(COUNTRY):
+        os.makedirs(COUNTRY)
 
     for fn in glob.glob(os.path.join(DATADIR, '*.op')):
         basename = os.path.basename(fn)
         station  = tuple(basename.split('-')[:2])
         if station in stations:
-            shutil.copyfile(fn, os.path.join(STATE, basename))
+            shutil.copyfile(fn, os.path.join(COUNTRY, basename))
 
 
 if __name__ == '__main__':
