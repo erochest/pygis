@@ -173,10 +173,12 @@ def get_rolling_avgs(month_avgs, period):
 
     for (key, month_avgs) in month_avgs.iteritems():
         month_avgs.sort(key=first)
-        avgs[key] = [
+        windows = [
                 (wnd[0][0], mean([ w[1] for w in wnd ]))
                 for wnd in window(month_avgs, period)
                 ]
+        if len(windows) > 1:
+            avgs[key] = windows
 
     dump('02-get-rolling-avgs', ('station', 'wban', 'start-year', 'rolling-avg'),
          iter_monthly_avgs(avgs))
@@ -192,10 +194,13 @@ def get_avg_diffs(avgs):
 
     for (key, rolling_avgs) in avgs.iteritems():
         if rolling_avgs:
-            diffs[key] = rolling_avgs[-1][1] - rolling_avgs[0][1]
+            diffs[key] = (
+                    rolling_avgs[-1][0] - rolling_avgs[0][0],
+                    rolling_avgs[-1][1] - rolling_avgs[0][1]
+                    )
 
-    dump('03-get-avg-diffs', ('station', 'wban', 'delta-temp'),
-         ( (s, w, d) for ((s, w), d) in diffs.iteritems() ))
+    dump('03-get-avg-diffs', ('station', 'wban', 'delta-year', 'delta-temp'),
+         ( (s, w, d1, d2) for ((s, w), (d1, d2)) in diffs.iteritems() ))
     return diffs
 
 
@@ -220,7 +225,7 @@ def write_diffs(diffs, station_locs, output_fn):
     log('write_diffs')
     with open(output_fn, 'wb') as fout:
         writer = csv.writer(fout)
-        writer.writerow(('station', 'lat', 'lon', 'delta-temp'))
+        writer.writerow(('station', 'lat', 'lon', 'delta-year', 'delta-temp'))
         writer.writerows(
                 output_row(d, station_locs[d[0]])
                 for d in diffs.iteritems()
@@ -230,9 +235,9 @@ def write_diffs(diffs, station_locs, output_fn):
 
 def output_row(diff_item, lat_lon):
     """This constructs a tuple for outputting a row. """
-    (key, delta) = diff_item
-    (lat, lon)   = lat_lon
-    return ('%s-%s' % key, delta, lat, lon)
+    (key, (delta_year, delta_temp)) = diff_item
+    (lat, lon) = lat_lon
+    return ('%s-%s' % key, lat, lon, delta_year, delta_temp)
 
 
 def main():
