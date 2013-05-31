@@ -15,7 +15,7 @@ from filter_data import HISTORY, COUNTRY, read_history
 DUMP   = True
 PERIOD = 30
 MONTH  = 6
-OUTPUT = 'climate.csv'
+OUTPUT = 'output-us.tsv'
 
 
 WeatherRow = namedtuple(
@@ -224,7 +224,7 @@ def write_diffs(diffs, station_locs, output_fn):
     """Output new data. """
     log('write_diffs')
     with open(output_fn, 'wb') as fout:
-        writer = csv.writer(fout)
+        writer = csv.writer(fout, 'excel-tab')
         writer.writerow(('station', 'lat', 'lon', 'delta-year', 'delta-temp'))
         writer.writerows(
                 output_row(d, station_locs[d[0]])
