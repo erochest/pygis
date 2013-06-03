@@ -225,7 +225,7 @@ def write_diffs(diffs, station_locs, output_fn):
     log('write_diffs')
     with open(output_fn, 'wb') as fout:
         writer = csv.writer(fout)
-        writer.writerow(('station', 'lat', 'lon', 'delta-year', 'delta-temp'))
+        writer.writerow(('station', 'lat', 'lon', 'dyear', 'dtemp'))
         writer.writerows(
                 output_row(d, station_locs[d[0]])
                 for d in diffs.iteritems()
