@@ -4,16 +4,16 @@
 
 ## The Plan
 
-1.  [Introductions](#/introductions)
-2.  [What is Python?](#/python)
-3.  [What Can I Do with It?](#/what-can-i-do-with-it)
-4.  [A Problem](#/a-problem)
-5.  [How to Solve It](/#how-to-solve-it)
-6.  [Downloading Data](/#downloading-data)
-7.  [Filtering and Fixing Data](/#filtering-and-fixing-data)
-8.  [Getting Rolling Averages](/#getting-rolling-averages)
-9.  [Charting Data](/#charting-data)
-10. [Links and Resources](/#links-and-resources)
+1.  [Introductions](/pygis/#introductions)
+2.  [What is Python?](/pygis/#python)
+3.  [What Can I Do with It?](/pygis/#what-can-i-do-with-it)
+4.  [A Problem](/pygis/#a-problem)
+5.  [How to Solve It](/pygis/#how-to-solve-it)
+6.  [Downloading Data](/pygis/#downloading-data)
+7.  [Filtering and Fixing Data](/pygis/#filtering-and-fixing-data)
+8.  [Getting Rolling Averages](/pygis/#getting-rolling-averages)
+9.  [Charting Data](/pygis/#charting-data)
+10. [Links and Resources](/pygis/#links-and-resources)
 
 # Introductions
 
@@ -384,8 +384,6 @@ Poor data coverage for this type of analysis
 
 Some stations don't really have enough data
 
-# Questions
-
 # Links and Resources
 
 ## Python
@@ -414,6 +412,8 @@ those with experience programming.
 Come see the GIS resources offered in the Scholars' Lab.
 
 [http://guides.lib.virginia.edu/gis](http://guides.lib.virginia.edu/gis).
+
+# Questions
 
 # Thanks
 
