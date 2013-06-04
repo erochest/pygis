@@ -409,7 +409,7 @@ those with experience programming.
 * [The Code](https://github.com/erochest/pygis)
 * [The Slides](http://www.ericrochester.com/pygis)
 
-# Have a GIS Problem?
+## Have a GIS Problem?
 
 Come see the GIS resources offered in the Scholars' Lab.
 
