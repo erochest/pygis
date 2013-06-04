@@ -1,4 +1,4 @@
-% Python and ArcGIS
+% Python and ArcGIS: Visualize It!
 % Eric Rochester
 % 4 June 2013
 
