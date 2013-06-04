@@ -10,6 +10,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
     <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+    </style>
     <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
   <link rel="stylesheet" media="print" href="reveal.js/css/print/pdf.css" />
   <!--[if lt IE 9]>
@@ -26,10 +45,361 @@
     <h3 class="date">4 June 2013</h3>
 </section>
 
-<section><section id="python" class="titleslide slide level1"><h1>Python</h1></section></section>
-<section><section id="gis" class="titleslide slide level1"><h1>GIS</h1></section></section>
-<section><section id="boy-howdy" class="titleslide slide level1"><h1>Boy-Howdy</h1></section></section>
-<section><section id="slide-four" class="titleslide slide level1"><h1>Slide Four</h1></section></section>
+<section id="the-plan" class="slide level2">
+<h1>The Plan</h1>
+<ol type="1">
+<li><a href="#//introductions">Introductions</a></li>
+<li><a href="#//python">What is Python?</a></li>
+<li><a href="#//what-can-i-do-with-it">What Can I Do with It?</a></li>
+<li><a href="#//a-problem">A Problem</a></li>
+<li><a href="/#how-to-solve-it">How to Solve It</a></li>
+<li><a href="/#downloading-data">Downloading Data</a></li>
+<li><a href="/#filtering-and-fixing-data">Filtering and Fixing Data</a></li>
+<li><a href="/#getting-rolling-averages">Getting Rolling Averages</a></li>
+<li><a href="/#charting-data">Charting Data</a></li>
+<li><a href="/#links-and-resources">Links and Resources</a></li>
+</ol>
+</section>
+<section><section id="introductions" class="titleslide slide level1"><h1>Introductions</h1></section><section id="eric-rochester" class="slide level2">
+<h1>Eric Rochester</h1>
+<p><a href="https://twitter.com/erochest">@erochest</a><br> <a href="http://www.ericrochester.com/">http://www.ericrochester.com/</a></p>
+</section><section id="scholars-lab" class="slide level2">
+<h1>Scholars’ Lab</h1>
+<p><a href="https://twitter.com/scholarslab">@scholarslab</a><br> <a href="http://www.scholarslab.org/">http://www.scholarslab.org/</a></p>
+</section><section id="who-are-you" class="slide level2">
+<h1>Who are you?</h1>
+</section></section>
+<section><section id="python" class="titleslide slide level1"><h1>Python</h1></section><section id="a-very-high-level-language" class="slide level2">
+<h1>A very high-level language</h1>
+</section><section id="easy-to-write" class="slide level2">
+<h1>Easy to write</h1>
+<p>Quirky (whitespace matters)</p>
+<p>But clear</p>
+<p>Not a lot of syntax to remember</p>
+</section><section id="easy-to-read" class="slide level2">
+<h1>Easy to read</h1>
+<p>Not a lot of syntax to get in the way</p>
+<p>Just verbose enough</p>
+</section><section id="easy-to-maintain" class="slide level2">
+<h1>Easy to maintain</h1>
+</section><section id="lets-see-some" class="slide level2">
+<h1>Let’s See Some</h1>
+<pre class="sourceCode python fragment"><code class="sourceCode python"><span class="kw">print</span> <span class="st">&#39;hello, world!&#39;</span></code></pre>
+<pre class="sourceCode python fragment"><code class="sourceCode python"><span class="kw">def</span> hello(name):
+    <span class="kw">print</span> <span class="st">&#39;hello, &#39;</span> + name</code></pre>
+<pre class="sourceCode python fragment"><code class="sourceCode python"><span class="kw">for</span> n in <span class="dt">range</span>(<span class="dv">7</span>):
+    hello(<span class="st">&#39;number &#39;</span> + <span class="dt">str</span>(n))</code></pre>
+<div class='fragment'>
+There’s more, but we won’t worry about that now.
+</div>
+
+</section></section>
+<section><section id="what-can-i-do-with-it" class="titleslide slide level1"><h1>What Can I Do with It?</h1></section><section id="work-with-files" class="slide level2">
+<h1>Work with Files</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">with</span> <span class="dt">open</span>(<span class="st">&#39;some-file.txt&#39;</span>, <span class="st">&#39;w&#39;</span>) <span class="ch">as</span> f:
+    f.write(<span class="st">&#39;hello, world!</span><span class="ch">\n</span><span class="st">&#39;</span>)</code></pre>
+</section><section id="work-with-the-network" class="slide level2">
+<h1>Work with the Network</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> requests
+r = requests.get(<span class="st">&#39;http://www.google.com&#39;</span>)
+<span class="kw">print</span> r.text[:<span class="dv">20</span>]</code></pre>
+<p>(Using the <a href="http://python-requests.org">requests</a> library.)</p>
+</section><section id="create-websites" class="slide level2">
+<h1>Create Websites</h1>
+<ul>
+<li><a href="https://www.djangoproject.com/">Django</a></li>
+<li><a href="http://flask.pocoo.org/">Flask</a></li>
+</ul>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> flask <span class="ch">import</span> Flask
+app = Flask(<span class="dt">__name__</span>)
+
+<span class="ot">@app.route</span>(<span class="st">&quot;/&quot;</span>)
+<span class="kw">def</span> hello():
+    <span class="kw">return</span> <span class="st">&quot;Hello World!&quot;</span>
+
+<span class="kw">if</span> <span class="dt">__name__</span> == <span class="st">&quot;__main__&quot;</span>:
+    app.run()</code></pre>
+<p>A very small Flask site.</p>
+</section><section id="scientificnumerical-processing" class="slide level2">
+<h1>Scientific/Numerical Processing</h1>
+<ul>
+<li><a href="http://www.numpy.org/">numpy</a></li>
+<li><a href="http://pandas.pydata.org/">pandas</a></li>
+</ul>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> numpy
+
+signal = numpy.array([-<span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">5</span>], dtype=<span class="dt">float</span>)
+fourier = numpy.fft.fft(signal)
+n = signal.size
+timestep = <span class="fl">0.1</span>
+freq = numpy.fft.fftfreq(n, d=timestep)
+<span class="kw">print</span> freq
+<span class="co"># [ 0.    1.25  2.5   3.75 -5.   -3.75 -2.5  -1.25]</span></code></pre>
+</section><section id="arcgis" class="slide level2">
+<h1>ArcGIS</h1>
+<div class='fragment'>
+Schedule Jobs
+</div>
+
+<div class='fragment'>
+Batch Processing
+</div>
+
+<div class='fragment'>
+Automate Tasks and Tools
+</div>
+
+<div class='fragment'>
+Loop through Records
+</div>
+
+<div class='fragment'>
+Manipulate Maps, Layers, and Geometries
+</div>
+
+<div class='fragment'>
+Use other Python Packages (<code>requests</code>, <code>numpy</code>)
+</div>
+
+</section></section>
+<section><section id="a-problem" class="titleslide slide level1"><h1>A Problem</h1></section><section id="how-to-solve-it" class="slide level2">
+<h1>How to Solve It</h1>
+<div class='fragment'>
+Download the Data
+</div>
+
+<div class='fragment'>
+Filter the Data
+</div>
+
+<div class='fragment'>
+Get Rolling Averages
+</div>
+
+<div class='fragment'>
+Write It Out
+</div>
+
+<div class='fragment'>
+Import It into ArcGIS
+</div>
+
+<div class='fragment'>
+Generate the Map
+</div>
+
+</section></section>
+<section><section id="downloading-data" class="titleslide slide level1"><h1>Downloading Data</h1></section><section id="identify-the-source" class="slide level2">
+<h1>Identify the Source</h1>
+<p>Global Summary of the Day (GSOD)</p>
+<p><a href="ftp://ftp.ncdc.noaa.gov/pub/data/gsod/">ftp://ftp.ncdc.noaa.gov/pub/data/gsod/</a></p>
+</section><section id="code-warning" class="slide level2">
+<h1>Code Warning</h1>
+</section><section id="high-level-plan" class="slide level2">
+<h1>High-Level Plan</h1>
+<pre class="sourceCode python"><code class="sourceCode python">HOST     = <span class="st">&#39;ftp.ncdc.noaa.gov&#39;</span>
+PATH     = <span class="st">&#39;/pub/data/gsod/&#39;</span>
+YEAR     = re.<span class="dt">compile</span>(<span class="st">r&#39;\d{4}&#39;</span>)
+DOWNLOAD = <span class="st">&#39;tars&#39;</span>
+DATADIR  = <span class="st">&#39;data&#39;</span>
+
+download(HOST, PATH, YEAR.match, DOWNLOAD)
+
+<span class="kw">for</span> fn in glob.glob(os.path.join(DOWNLOAD, <span class="st">&#39;*.tar&#39;</span>)):
+    untar(fn, DATADIR)
+
+<span class="kw">for</span> fn in glob.glob(os.path.join(DATADIR, <span class="st">&#39;*.gz&#39;</span>)):
+    ungzip(fn)
+
+<span class="kw">print</span>(<span class="st">&#39;done.&#39;</span>)</code></pre>
+</section><section id="download" class="slide level2">
+<h1>Download</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> download(host, path, year_filter, target):
+    <span class="co">&quot;&quot;&quot;This downloads the files into the target directory. &quot;&quot;&quot;</span>
+    <span class="kw">if</span> not os.path.exists(target):
+        os.makedirs(target)
+
+    <span class="kw">with</span> closing(ftplib.FTP(host)) <span class="ch">as</span> ftp:
+        ftp.login()
+        ftp.cwd(path)
+
+        <span class="kw">for</span> dirname in ftp.nlst():
+            <span class="kw">if</span> year_filter(dirname):
+                src  = <span class="st">&#39;</span><span class="ot">%s</span><span class="st">/gsod_</span><span class="ot">%s</span><span class="st">.tar&#39;</span> % (dirname, dirname)
+                dest = os.path.join(target, <span class="st">&#39;gsod_</span><span class="ot">%s</span><span class="st">.tar&#39;</span> % (dirname,))
+                <span class="kw">print</span>(<span class="st">&#39;</span><span class="ot">%s</span><span class="st"> =&gt; </span><span class="ot">%s</span><span class="st">&#39;</span> % (src, dest))
+
+                <span class="kw">with</span> <span class="dt">open</span>(dest, <span class="st">&#39;wb&#39;</span>) <span class="ch">as</span> f:
+                    ftp.retrbinary(<span class="st">&#39;RETR &#39;</span> + src, f.write)</code></pre>
+</section><section id="un-tar" class="slide level2">
+<h1>Un-tar</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> untar(input_file, dest):
+    <span class="co">&quot;&quot;&quot;This untars the file into the directory given.&quot;&quot;&quot;</span>
+    <span class="kw">with</span> closing(tarfile.<span class="dt">open</span>(input_file, <span class="st">&#39;r&#39;</span>)) <span class="ch">as</span> tf:
+        tf.extractall(dest)</code></pre>
+</section><section id="unzip" class="slide level2">
+<h1>Unzip</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> ungzip(input_file):
+    <span class="co">&quot;&quot;&quot;This un-gzips the input file and deletes the original.&quot;&quot;&quot;</span>
+    dest = os.path.splitext(input_file)[<span class="dv">0</span>]
+    <span class="kw">print</span>(<span class="st">&#39;</span><span class="ot">%s</span><span class="st"> =&gt; </span><span class="ot">%s</span><span class="st">&#39;</span> % (input_file, dest))
+
+    <span class="kw">with</span> closing(gzip.<span class="dt">open</span>(input_file, <span class="st">&#39;rb&#39;</span>)) <span class="ch">as</span> zf:
+        <span class="kw">with</span> closing(<span class="dt">open</span>(dest, <span class="st">&#39;wb&#39;</span>)) <span class="ch">as</span> fout:
+            fout.write(zf.read())
+
+    os.remove(input_file)</code></pre>
+</section><section id="now-what" class="slide level2">
+<h1>Now What?</h1>
+<p>What have we just accomplished?</p>
+<p>Questions?</p>
+</section></section>
+<section><section id="filtering-and-fixing-data" class="titleslide slide level1"><h1>Filtering and Fixing Data</h1></section><section id="make-a-plan" class="slide level2">
+<h1>Make a Plan</h1>
+</section><section id="high-level" class="slide level2">
+<h1>High-Level</h1>
+<pre class="sourceCode python"><code class="sourceCode python">DATADIR = <span class="st">&#39;data&#39;</span>
+HISTORY = <span class="st">&#39;ish-history.csv&#39;</span>
+<span class="co"># This is from ftp://ftp.ncdc.noaa.gov/pub/data/gsod/country-list.txt</span>
+COUNTRY = <span class="st">&#39;US&#39;</span>
+
+history  = read_history(HISTORY)
+stations = get_stations(history, COUNTRY)
+
+<span class="kw">if</span> not os.path.exists(COUNTRY):
+    os.makedirs(COUNTRY)
+
+<span class="kw">for</span> fn in glob.glob(os.path.join(DATADIR, <span class="st">&#39;*.op&#39;</span>)):
+    basename = os.path.basename(fn)
+    station  = <span class="dt">tuple</span>(basename.split(<span class="st">&#39;-&#39;</span>)[:<span class="dv">2</span>])
+    <span class="kw">if</span> station in stations:
+        shutil.copyfile(fn, os.path.join(COUNTRY, basename))</code></pre>
+</section><section id="read-all-stations" class="slide level2">
+<h1>Read all Stations</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> read_history(fn):
+    <span class="co">&quot;&quot;&quot;This reads the ish-history.csv file into a sequence of named tuples. &quot;&quot;&quot;</span>
+    <span class="kw">with</span> <span class="dt">open</span>(fn, <span class="st">&#39;rb&#39;</span>) <span class="ch">as</span> f:
+        <span class="kw">for</span> row in itertools.islice(csv.reader(f), <span class="dv">1</span>, <span class="ot">None</span>):
+            <span class="kw">yield</span> IshHistory._make(row)</code></pre>
+</section><section id="filter-for-stations-in-a-country" class="slide level2">
+<h1>Filter for Stations in a Country</h1>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> get_stations(history, country):
+    <span class="co">&quot;&quot;&quot;\</span>
+<span class="co">    This takes a seq of IshHistory objects and returns a set of stations</span>
+<span class="co">    for the country and state.</span>
+
+<span class="co">    &quot;&quot;&quot;</span>
+
+    stations = <span class="dt">set</span>()
+    <span class="kw">for</span> h in history:
+        <span class="kw">if</span> h.country == country:
+            stations.add((h.usaf, h.wban))
+    <span class="kw">return</span> stations</code></pre>
+</section><section id="filter-the-data-files" class="slide level2">
+<h1>Filter the Data Files</h1>
+<p>You’ve already seen this.</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">for</span> fn in glob.glob(os.path.join(DATADIR, <span class="st">&#39;*.op&#39;</span>)):
+    basename = os.path.basename(fn)
+    station  = <span class="dt">tuple</span>(basename.split(<span class="st">&#39;-&#39;</span>)[:<span class="dv">2</span>])
+    <span class="kw">if</span> station in stations:
+        shutil.copyfile(fn, os.path.join(COUNTRY, basename))</code></pre>
+</section></section>
+<section><section id="rolling-averages" class="titleslide slide level1"><h1>Rolling Averages</h1></section><section id="high-level-1" class="slide level2">
+<h1>High Level</h1>
+<pre class="sourceCode python"><code class="sourceCode python">weather      = read_month_data(COUNTRY, MONTH)
+month_avgs   = get_monthly_avgs(weather)
+avgs         = get_rolling_avgs(month_avgs, PERIOD)
+diffs        = get_avg_diffs(avgs)
+station_locs = get_station_locs(HISTORY)
+write_diffs(diffs, station_locs, OUTPUT)</code></pre>
+</section><section id="the-output" class="slide level2">
+<h1>The Output</h1>
+<pre class="csv"><code>station,lat,lon,delta-year,delta-temp
+723110-13873,33948.0,-83328.0,10,0.9941507936507605
+725957-24215,41333.0,-122333.0,2,-0.23433333333329642
+911900-22516,20900.0,-156429.0,10,0.35795785440609507
+725760-24021,42815.0,-108726.0,10,-0.1169233716475162
+725970-24225,42381.0,-122872.0,10,-0.3798888888888712
+724839-93225,38696.0,-121590.0,6,-0.024111111111125183
+725705-99999,40441.0,-109510.0,2,0.05642905982907109
+747240-23168,32888.0,-112720.0,5,-0.06910191547585498
+910660-22701,28200.0,-177383.0,27,2.5541111111110837</code></pre>
+</section><section id="for-more-details" class="slide level2">
+<h1>For More Details</h1>
+<p>See <a href="https://github.com/erochest/pygis/blob/master/bin/rolling.py">bin/rolling.py</a></p>
+</section></section>
+<section><section id="charting-data" class="titleslide slide level1"><h1>Charting Data</h1></section><section id="open-arcgis" class="slide level2">
+<h1>Open ArcGIS</h1>
+<p>You can do this from the Hive:</p>
+<p><a href="http://its.virginia.edu/hive/">http://its.virginia.edu/hive/</a></p>
+<p>I also added ESRI’s <a href="http://www.arcgis.com/home/item.html?id=99cd5fbd98934028802b4f797c4b1732">USA topographic maps</a>.</p>
+</section><section id="import-the-data" class="slide level2">
+<h1>Import the Data</h1>
+<ol type="1">
+<li>File » Add Data » Add XY Data</li>
+<li>Select the file</li>
+<li>Set <em>dtemp</em> for the <em>z</em> field</li>
+<li>Select <strong>WGS 1984</strong> as the projection</li>
+</ol>
+</section><section id="colors" class="slide level2">
+<h1>Colors</h1>
+<p>Layer Properties » Symbology » Quantities</p>
+<figure>
+<img src="img/layer-properties.png" alt="Layer Properties" /><figcaption>Layer Properties</figcaption>
+</figure>
+</section><section class="slide level2">
+
+<figure>
+<img src="img/data-imported.png" alt="Data Points" /><figcaption>Data Points</figcaption>
+</figure>
+</section><section id="inverse-distance-weighted-interpolation-idw" class="slide level2">
+<h1>Inverse Distance Weighted Interpolation (IDW)</h1>
+<p><a href="http://resources.arcgis.com/en/help/main/10.1/index.html#//003000000007000000">ArcGIS Help</a></p>
+</section><section id="run-the-analysis" class="slide level2">
+<h1>Run the Analysis</h1>
+<figure>
+<img src="img/idw.png" alt="IDW Dialog" /><figcaption>IDW Dialog</figcaption>
+</figure>
+</section><section id="transparency" class="slide level2">
+<h1>Transparency</h1>
+<figure>
+<img src="img/transparency.png" alt="Set the transparency on the generated layer from the layer properties." /><figcaption>Set the transparency on the generated layer from the layer properties.</figcaption>
+</figure>
+</section><section id="output" class="slide level2">
+<h1>Output</h1>
+<figure>
+<img src="img/output.png" alt="Done" /><figcaption>Done</figcaption>
+</figure>
+</section><section id="caveats" class="slide level2">
+<h1>Caveats</h1>
+<p>Poor data coverage for this type of analysis</p>
+<p>Some stations don’t really have enough data</p>
+</section></section>
+<section><section id="questions" class="titleslide slide level1"><h1>Questions</h1></section></section>
+<section><section id="links-and-resources" class="titleslide slide level1"><h1>Links and Resources</h1></section><section id="python-1" class="slide level2">
+<h1>Python</h1>
+<ul>
+<li><a href="http://python.org">Python Website</a></li>
+<li><a href="http://learnpythonthehardway.org/">Learn Python the Hard Way</a> — For new programmers.</li>
+<li><a href="http://docs.python.org/release/2.6.7/tutorial/index.html">The Python Tutorial</a> — For those with experience programming.</li>
+<li><a href="http://docs.python.org/release/2.6.7/">Python 2.6 Documentation</a></li>
+</ul>
+</section><section id="arcgis-and-python" class="slide level2">
+<h1>ArcGIS and Python</h1>
+<ul>
+<li><a href="http://esri.com">ESRI/ArcGIS</a></li>
+<li><a href="http://www.esri.com/python">ESRI’s Python Page</a></li>
+<li><a href="http://www.esri.com/arcpy">arcpy</a></li>
+</ul>
+</section><section id="this" class="slide level2">
+<h1>This</h1>
+<ul>
+<li><a href="https://github.com/erochest/pygis">The Code</a></li>
+<li><a href="http://www.ericrochester.com/pygis">The Slides</a></li>
+</ul>
+</section></section>
+<section><section id="have-a-gis-problem" class="titleslide slide level1"><h1>Have a GIS Problem?</h1></section></section>
+<section><section id="thanks" class="titleslide slide level1"><h1>Thanks</h1></section></section>
     </div>
   </div>
 
