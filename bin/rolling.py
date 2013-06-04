@@ -213,7 +213,7 @@ def get_station_locs(history_fn):
     for row in history:
         if row.lat and row.lon:
             key = (row.usaf, row.wban)
-            station_locs[key] = (float(row.lat), float(row.lon))
+            station_locs[key] = (float(row.lat) / 1000.0, float(row.lon) / 1000.0)
 
     dump('04-get-station-locs', ('station', 'wban', 'lat', 'lon'),
          ( (s, w, lat, lon) for ((s, w), (lat, lon)) in station_locs.iteritems() ))
