@@ -14,16 +14,15 @@ HISTORY = 'ish-history.csv'
 
 # This is from ftp://ftp.ncdc.noaa.gov/pub/data/gsod/country-list.txt
 COUNTRY = 'US'
-STATE   = 'VA'
 
 
 IshHistory = namedtuple(
-        'IshHistory',
-        '''
-        usaf wban station_name country fips state call lat lon elevation begin
-        end
-        '''
-        )
+    'IshHistory',
+    '''
+    usaf wban station_name country fips state call lat lon elevation begin
+    end
+    '''
+    )
 
 
 def read_history(fn):
@@ -40,15 +39,16 @@ def get_stations(history, country):
 
     """
 
-    stations = set()
-    for h in history:
-        if h.country == country:
-            stations.add((h.usaf, h.wban))
+    stations = set(
+        (h.usaf, h.wban)
+        for h in history
+        if h.country == country
+        )
     return stations
 
 
 def main():
-    history  = read_history(HISTORY)
+    history = read_history(HISTORY)
     stations = get_stations(history, COUNTRY)
 
     if not os.path.exists(COUNTRY):
@@ -56,7 +56,7 @@ def main():
 
     for fn in glob.glob(os.path.join(DATADIR, '*.op')):
         basename = os.path.basename(fn)
-        station  = tuple(basename.split('-')[:2])
+        station = tuple(basename.split('-')[:2])
         if station in stations:
             shutil.copyfile(fn, os.path.join(COUNTRY, basename))
 

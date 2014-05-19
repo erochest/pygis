@@ -12,20 +12,20 @@ import os
 from filter_data import HISTORY, COUNTRY, read_history
 
 
-DUMP   = True
+DUMP = True
 PERIOD = 30
-MONTH  = 6
+MONTH = 6
 OUTPUT = 'output-us.csv'
 
 
 WeatherRow = namedtuple(
-        'WeatherRow',
-        '''
-        station wban date temp temp_count dewp dewp_count slp slp_count stp
-        stp_count visibility vis_count wdsp wdsp_count max_wind_spd max_gust
-        max_temp min_temp precipitation snow_depth rfshtt
-        '''
-        )
+    'WeatherRow',
+    '''
+    station wban date temp temp_count dewp dewp_count slp slp_count stp
+    stp_count visibility vis_count wdsp wdsp_count max_wind_spd max_gust
+    max_temp min_temp precipitation snow_depth rfshtt
+    '''
+    )
 
 
 AccumDict = lambda: defaultdict(list)
@@ -55,9 +55,9 @@ def read_weather(fn):
 
 def parse_date(year_month_day):
     """Takes a string in the format YYYYMMDD and returns a date. """
-    year  = int(year_month_day[:4])
+    year = int(year_month_day[:4])
     month = int(year_month_day[4:6])
-    day   = int(year_month_day[6:])
+    day = int(year_month_day[6:])
     return datetime.date(year, month, day)
 
 
@@ -86,10 +86,10 @@ def normalize(row):
         return None
     else:
         return row._replace(
-                date=parse_date(row.date),
-                max_temp=max_temp,
-                min_temp=min_temp,
-                )
+            date=parse_date(row.date),
+            max_temp=max_temp,
+            min_temp=min_temp,
+            )
 
 
 def get_month(year_month_day):
@@ -105,7 +105,7 @@ def window(seq, n):
 
     """
 
-    it     = iter(seq)
+    it = iter(seq)
     result = tuple(itertools.islice(it, n))
     if len(result) <= n:
         yield result
@@ -114,10 +114,10 @@ def window(seq, n):
         yield result
 
 
-get_station      = operator.attrgetter('station')
+get_station = operator.attrgetter('station')
 get_station_year = operator.attrgetter('station', 'wban', 'date.year')
-get_date         = operator.attrgetter('date')
-first            = operator.itemgetter(0)
+get_date = operator.attrgetter('date')
+first = operator.itemgetter(0)
 
 
 def mean(seq):
@@ -132,7 +132,7 @@ def read_month_data(datadir, month):
     weather = []
 
     for fn in glob.glob(os.path.join(datadir, '*.op')):
-        weather += ( w for w in read_weather(fn) if w.date.month == month )
+        weather += (w for w in read_weather(fn) if w.date.month == month)
 
     dump('00-read-month-data', weather[0]._fields, weather)
     return weather
@@ -151,7 +151,7 @@ def get_monthly_avgs(weather):
     groups = itertools.groupby(weather, get_station_year)
     for ((station, wban, year), obs_iter) in groups:
         key = (station, wban)
-        avg = mean([ o.max_temp for o in obs_iter ])
+        avg = mean([o.max_temp for o in obs_iter])
         month_avgs[key].append((year, avg))
 
     dump('01-get-monthly-avgs', ('station', 'wban', 'year', 'avgs'),
@@ -174,13 +174,14 @@ def get_rolling_avgs(month_avgs, period):
     for (key, month_avgs) in month_avgs.iteritems():
         month_avgs.sort(key=first)
         windows = [
-                (wnd[0][0], mean([ w[1] for w in wnd ]))
-                for wnd in window(month_avgs, period)
-                ]
+            (wnd[0][0], mean([w[1] for w in wnd]))
+            for wnd in window(month_avgs, period)
+            ]
         if len(windows) > 1:
             avgs[key] = windows
 
-    dump('02-get-rolling-avgs', ('station', 'wban', 'start-year', 'rolling-avg'),
+    dump('02-get-rolling-avgs',
+         ('station', 'wban', 'start-year', 'rolling-avg'),
          iter_monthly_avgs(avgs))
     return avgs
 
@@ -195,12 +196,12 @@ def get_avg_diffs(avgs):
     for (key, rolling_avgs) in avgs.iteritems():
         if rolling_avgs:
             diffs[key] = (
-                    rolling_avgs[-1][0] - rolling_avgs[0][0],
-                    rolling_avgs[-1][1] - rolling_avgs[0][1]
-                    )
+                rolling_avgs[-1][0] - rolling_avgs[0][0],
+                rolling_avgs[-1][1] - rolling_avgs[0][1]
+                )
 
     dump('03-get-avg-diffs', ('station', 'wban', 'delta-year', 'delta-temp'),
-         ( (s, w, d1, d2) for ((s, w), (d1, d2)) in diffs.iteritems() ))
+         ((s, w, d1, d2) for ((s, w), (d1, d2)) in diffs.iteritems()))
     return diffs
 
 
@@ -213,10 +214,12 @@ def get_station_locs(history_fn):
     for row in history:
         if row.lat and row.lon:
             key = (row.usaf, row.wban)
-            station_locs[key] = (float(row.lat) / 1000.0, float(row.lon) / 1000.0)
+            station_locs[key] = (float(row.lat) / 1000.0,
+                                 float(row.lon) / 1000.0)
 
     dump('04-get-station-locs', ('station', 'wban', 'lat', 'lon'),
-         ( (s, w, lat, lon) for ((s, w), (lat, lon)) in station_locs.iteritems() ))
+         ((s, w, lat, lon)
+          for ((s, w), (lat, lon)) in station_locs.iteritems()))
     return station_locs
 
 
@@ -227,10 +230,10 @@ def write_diffs(diffs, station_locs, output_fn):
         writer = csv.writer(fout)
         writer.writerow(('station', 'lat', 'lon', 'dyear', 'dtemp'))
         writer.writerows(
-                output_row(d, station_locs[d[0]])
-                for d in diffs.iteritems()
-                if d[0] in station_locs
-                )
+            output_row(d, station_locs[d[0]])
+            for d in diffs.iteritems()
+            if d[0] in station_locs
+            )
 
 
 def output_row(diff_item, lat_lon):
@@ -243,10 +246,10 @@ def output_row(diff_item, lat_lon):
 def main():
     start = datetime.datetime.now()
 
-    weather      = read_month_data(COUNTRY, MONTH)
-    month_avgs   = get_monthly_avgs(weather)
-    avgs         = get_rolling_avgs(month_avgs, PERIOD)
-    diffs        = get_avg_diffs(avgs)
+    weather = read_month_data(COUNTRY, MONTH)
+    month_avgs = get_monthly_avgs(weather)
+    avgs = get_rolling_avgs(month_avgs, PERIOD)
+    diffs = get_avg_diffs(avgs)
     station_locs = get_station_locs(HISTORY)
     write_diffs(diffs, station_locs, OUTPUT)
 

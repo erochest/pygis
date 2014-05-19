@@ -10,11 +10,11 @@ import re
 import tarfile
 
 
-HOST     = 'ftp.ncdc.noaa.gov'
-PATH     = '/pub/data/gsod/'
-YEAR     = re.compile(r'\d{4}')
+HOST = 'ftp.ncdc.noaa.gov'
+PATH = '/pub/data/gsod/'
+YEAR = re.compile(r'\d{4}')
 DOWNLOAD = 'tars'
-DATADIR  = 'data'
+DATADIR = 'data'
 
 
 def download(host, path, year_filter, target):
@@ -28,7 +28,7 @@ def download(host, path, year_filter, target):
 
         for dirname in ftp.nlst():
             if year_filter(dirname):
-                src  = '%s/gsod_%s.tar' % (dirname, dirname)
+                src = '%s/gsod_%s.tar' % (dirname, dirname)
                 dest = os.path.join(target, 'gsod_%s.tar' % (dirname,))
                 print('%s => %s' % (src, dest))
 
@@ -48,7 +48,7 @@ def ungzip(input_file):
     print('%s => %s' % (input_file, dest))
 
     with closing(gzip.open(input_file, 'rb')) as zf:
-        with closing(open(dest, 'wb')) as fout:
+        with open(dest, 'wb') as fout:
             fout.write(zf.read())
 
     os.remove(input_file)
