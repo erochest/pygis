@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-from collections import defaultdict, namedtuple
+from collections import defaultdict, deque, namedtuple
 import csv
 import datetime
 import glob
@@ -106,12 +106,13 @@ def window(seq, n):
     """
 
     it = iter(seq)
-    result = tuple(itertools.islice(it, n))
+    result = deque(itertools.islice(it, n))
     if len(result) <= n:
         yield result
     for elem in it:
-        result = result[1:] + (elem,)
-        yield result
+        result.popleft()
+        result.append(elem)
+        yield tuple(result)
 
 
 get_station = operator.attrgetter('station')
