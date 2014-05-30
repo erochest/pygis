@@ -30,10 +30,19 @@ code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
     </style>
     <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
-  <link rel="stylesheet" media="print" href="reveal.js/css/print/pdf.css" />
-  <!--[if lt IE 9]>
-  <script src="reveal.js/lib/js/html5shiv.js"></script>
-  <![endif]-->
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
 </head>
 <body>
   <div class="reveal">
@@ -49,8 +58,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1>The Plan</h1>
 <ol type="1">
 <li><a href="/pygis/#introductions">Introductions</a></li>
-<li><a href="/pygis/#python">What is Python?</a></li>
-<li><a href="/pygis/#what-can-i-do-with-it">What Can I Do with It?</a></li>
+<li><a href="/pygis/#what-can-i-do-with-python">What Can I Do with Python?</a></li>
 <li><a href="/pygis/#a-problem">A Problem</a></li>
 <li><a href="/pygis/#how-to-solve-it">How to Solve It</a></li>
 <li><a href="/pygis/#downloading-data">Downloading Data</a></li>
@@ -62,47 +70,22 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section><section id="introductions" class="titleslide slide level1"><h1>Introductions</h1></section><section id="eric-rochester" class="slide level2">
 <h1>Eric Rochester</h1>
-<p><a href="https://twitter.com/erochest">@erochest</a><br> <a href="http://www.ericrochester.com/">http://www.ericrochester.com/</a></p>
+<p><span class="citation" data-cites="erochest">[@erochest]</span>(https://twitter.com/erochest)<br> <a href="http://www.ericrochester.com/">http://www.ericrochester.com/</a></p>
 </section><section id="scholars-lab" class="slide level2">
 <h1>Scholars’ Lab</h1>
-<p><a href="https://twitter.com/scholarslab">@scholarslab</a><br> <a href="http://www.scholarslab.org/">http://www.scholarslab.org/</a></p>
+<p><span class="citation" data-cites="scholarslab">[@scholarslab]</span>(https://twitter.com/scholarslab)<br> <a href="http://www.scholarslab.org/">http://www.scholarslab.org/</a></p>
 </section><section id="who-are-you" class="slide level2">
 <h1>Who are you?</h1>
 </section></section>
-<section><section id="python" class="titleslide slide level1"><h1>Python</h1></section><section id="a-very-high-level-language" class="slide level2">
-<h1>A very high-level language</h1>
-</section><section id="easy-to-write" class="slide level2">
-<h1>Easy to write</h1>
-<p>Quirky (whitespace matters)</p>
-<p>But clear</p>
-<p>Not a lot of syntax to remember</p>
-</section><section id="easy-to-read" class="slide level2">
-<h1>Easy to read</h1>
-<p>Not a lot of syntax to get in the way</p>
-<p>Just verbose enough</p>
-</section><section id="easy-to-maintain" class="slide level2">
-<h1>Easy to maintain</h1>
-</section><section id="lets-see-some" class="slide level2">
-<h1>Let’s See Some</h1>
-<pre class="sourceCode python fragment"><code class="sourceCode python"><span class="kw">print</span> <span class="st">&#39;hello, world!&#39;</span></code></pre>
-<pre class="sourceCode python fragment"><code class="sourceCode python"><span class="kw">def</span> hello(name):
-    <span class="kw">print</span> <span class="st">&#39;hello, &#39;</span> + name</code></pre>
-<pre class="sourceCode python fragment"><code class="sourceCode python"><span class="kw">for</span> n in <span class="dt">range</span>(<span class="dv">7</span>):
-    hello(<span class="st">&#39;number &#39;</span> + <span class="dt">str</span>(n))</code></pre>
-<div class='fragment'>
-There’s more, but we won’t worry about that now.
-</div>
-
-</section></section>
-<section><section id="what-can-i-do-with-it" class="titleslide slide level1"><h1>What Can I Do with It?</h1></section><section id="work-with-files" class="slide level2">
+<section><section id="what-can-i-do-with-python" class="titleslide slide level1"><h1>What Can I Do with Python?</h1></section><section id="work-with-files" class="slide level2">
 <h1>Work with Files</h1>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">with</span> <span class="dt">open</span>(<span class="st">&#39;some-file.txt&#39;</span>, <span class="st">&#39;w&#39;</span>) <span class="ch">as</span> f:
     f.write(<span class="st">&#39;hello, world!</span><span class="ch">\n</span><span class="st">&#39;</span>)</code></pre>
-</section><section id="work-with-the-network" class="slide level2">
-<h1>Work with the Network</h1>
+</section><section id="download-web-pages" class="slide level2">
+<h1>Download Web Pages</h1>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> requests
 r = requests.get(<span class="st">&#39;http://www.google.com&#39;</span>)
-<span class="kw">print</span> r.text[:<span class="dv">20</span>]</code></pre>
+<span class="dt">print</span> r.text[:<span class="dv">20</span>]</code></pre>
 <p>(Using the <a href="http://python-requests.org">requests</a> library.)</p>
 </section><section id="create-websites" class="slide level2">
 <h1>Create Websites</h1>
@@ -111,13 +94,13 @@ r = requests.get(<span class="st">&#39;http://www.google.com&#39;</span>)
 <li><a href="http://flask.pocoo.org/">Flask</a></li>
 </ul>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> flask <span class="ch">import</span> Flask
-app = Flask(<span class="dt">__name__</span>)
+app = Flask(<span class="ot">__name__</span>)
 
 <span class="ot">@app.route</span>(<span class="st">&quot;/&quot;</span>)
 <span class="kw">def</span> hello():
     <span class="kw">return</span> <span class="st">&quot;Hello World!&quot;</span>
 
-<span class="kw">if</span> <span class="dt">__name__</span> == <span class="st">&quot;__main__&quot;</span>:
+<span class="kw">if</span> <span class="ot">__name__</span> == <span class="st">&quot;__main__&quot;</span>:
     app.run()</code></pre>
 <p>A very small Flask site.</p>
 </section><section id="scientificnumerical-processing" class="slide level2">
@@ -133,73 +116,59 @@ fourier = numpy.fft.fft(signal)
 n = signal.size
 timestep = <span class="fl">0.1</span>
 freq = numpy.fft.fftfreq(n, d=timestep)
-<span class="kw">print</span> freq
+<span class="dt">print</span> freq
 <span class="co"># [ 0.    1.25  2.5   3.75 -5.   -3.75 -2.5  -1.25]</span></code></pre>
 </section><section id="arcgis" class="slide level2">
 <h1>ArcGIS</h1>
-<div class='fragment'>
+<div class="fragment">
 Schedule Jobs
 </div>
-
-<div class='fragment'>
+<div class="fragment">
 Batch Processing
 </div>
-
-<div class='fragment'>
+<div class="fragment">
 Automate Tasks and Tools
 </div>
-
-<div class='fragment'>
+<div class="fragment">
 Loop through Records
 </div>
-
-<div class='fragment'>
+<div class="fragment">
 Manipulate Maps, Layers, and Geometries
 </div>
-
-<div class='fragment'>
+<div class="fragment">
 Use other Python Packages (<code>requests</code>, <code>numpy</code>)
 </div>
-
 </section></section>
 <section><section id="a-problem" class="titleslide slide level1"><h1>A Problem</h1></section><section id="how-to-solve-it" class="slide level2">
 <h1>How to Solve It</h1>
-<div class='fragment'>
+<div class="fragment">
 Download the Data
 </div>
-
-<div class='fragment'>
+<div class="fragment">
 Filter the Data
 </div>
-
-<div class='fragment'>
+<div class="fragment">
 Get Rolling Averages
 </div>
-
-<div class='fragment'>
+<div class="fragment">
 Write It Out
 </div>
-
-<div class='fragment'>
+<div class="fragment">
 Import It into ArcGIS
 </div>
-
-<div class='fragment'>
+<div class="fragment">
 Generate the Map
 </div>
-
 </section></section>
 <section><section id="downloading-data" class="titleslide slide level1"><h1>Downloading Data</h1></section><section id="identify-the-source" class="slide level2">
 <h1>Identify the Source</h1>
 <p>Global Summary of the Day (GSOD)</p>
 <p><a href="ftp://ftp.ncdc.noaa.gov/pub/data/gsod/">ftp://ftp.ncdc.noaa.gov/pub/data/gsod/</a></p>
-</section><section id="code-warning" class="slide level2">
-<h1>Code Warning</h1>
 </section><section id="high-level-plan" class="slide level2">
 <h1>High-Level Plan</h1>
 <pre class="sourceCode python"><code class="sourceCode python">HOST     = <span class="st">&#39;ftp.ncdc.noaa.gov&#39;</span>
 PATH     = <span class="st">&#39;/pub/data/gsod/&#39;</span>
-YEAR     = re.<span class="dt">compile</span>(<span class="st">r&#39;\d{4}&#39;</span>)
+YEAR     = re.<span class="dt">compile</span>(<span class="st">r&#39;\d</span><span class="ot">{4}</span><span class="st">&#39;</span>)
 DOWNLOAD = <span class="st">&#39;tars&#39;</span>
 DATADIR  = <span class="st">&#39;data&#39;</span>
 
@@ -211,7 +180,7 @@ download(HOST, PATH, YEAR.match, DOWNLOAD)
 <span class="kw">for</span> fn in glob.glob(os.path.join(DATADIR, <span class="st">&#39;*.gz&#39;</span>)):
     ungzip(fn)
 
-<span class="kw">print</span>(<span class="st">&#39;done.&#39;</span>)</code></pre>
+<span class="dt">print</span>(<span class="st">&#39;done.&#39;</span>)</code></pre>
 </section><section id="download" class="slide level2">
 <h1>Download</h1>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> download(host, path, year_filter, target):
@@ -227,7 +196,7 @@ download(HOST, PATH, YEAR.match, DOWNLOAD)
             <span class="kw">if</span> year_filter(dirname):
                 src  = <span class="st">&#39;</span><span class="ot">%s</span><span class="st">/gsod_</span><span class="ot">%s</span><span class="st">.tar&#39;</span> % (dirname, dirname)
                 dest = os.path.join(target, <span class="st">&#39;gsod_</span><span class="ot">%s</span><span class="st">.tar&#39;</span> % (dirname,))
-                <span class="kw">print</span>(<span class="st">&#39;</span><span class="ot">%s</span><span class="st"> =&gt; </span><span class="ot">%s</span><span class="st">&#39;</span> % (src, dest))
+                <span class="dt">print</span>(<span class="st">&#39;</span><span class="ot">%s</span><span class="st"> =&gt; </span><span class="ot">%s</span><span class="st">&#39;</span> % (src, dest))
 
                 <span class="kw">with</span> <span class="dt">open</span>(dest, <span class="st">&#39;wb&#39;</span>) <span class="ch">as</span> f:
                     ftp.retrbinary(<span class="st">&#39;RETR &#39;</span> + src, f.write)</code></pre>
@@ -242,7 +211,7 @@ download(HOST, PATH, YEAR.match, DOWNLOAD)
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> ungzip(input_file):
     <span class="co">&quot;&quot;&quot;This un-gzips the input file and deletes the original.&quot;&quot;&quot;</span>
     dest = os.path.splitext(input_file)[<span class="dv">0</span>]
-    <span class="kw">print</span>(<span class="st">&#39;</span><span class="ot">%s</span><span class="st"> =&gt; </span><span class="ot">%s</span><span class="st">&#39;</span> % (input_file, dest))
+    <span class="dt">print</span>(<span class="st">&#39;</span><span class="ot">%s</span><span class="st"> =&gt; </span><span class="ot">%s</span><span class="st">&#39;</span> % (input_file, dest))
 
     <span class="kw">with</span> closing(gzip.<span class="dt">open</span>(input_file, <span class="st">&#39;rb&#39;</span>)) <span class="ch">as</span> zf:
         <span class="kw">with</span> closing(<span class="dt">open</span>(dest, <span class="st">&#39;wb&#39;</span>)) <span class="ch">as</span> fout:
@@ -290,10 +259,11 @@ stations = get_stations(history, COUNTRY)
 
 <span class="co">    &quot;&quot;&quot;</span>
 
-    stations = <span class="dt">set</span>()
-    <span class="kw">for</span> h in history:
-        <span class="kw">if</span> h.country == country:
-            stations.add((h.usaf, h.wban))
+    stations = <span class="dt">set</span>(
+        (h.usaf, h.wban)
+        <span class="kw">for</span> h in history
+        <span class="kw">if</span> h.country == country
+        )
     <span class="kw">return</span> stations</code></pre>
 </section><section id="filter-the-data-files" class="slide level2">
 <h1>Filter the Data Files</h1>
@@ -375,7 +345,7 @@ write_diffs(diffs, station_locs, OUTPUT)</code></pre>
 <p>Poor data coverage for this type of analysis</p>
 <p>Some stations don’t really have enough data</p>
 </section></section>
-<section><section id="links-and-resources" class="titleslide slide level1"><h1>Links and Resources</h1></section><section id="python-1" class="slide level2">
+<section><section id="links-and-resources" class="titleslide slide level1"><h1>Links and Resources</h1></section><section id="python" class="slide level2">
 <h1>Python</h1>
 <ul>
 <li><a href="http://python.org">Python Website</a></li>
@@ -390,8 +360,8 @@ write_diffs(diffs, station_locs, OUTPUT)</code></pre>
 <li><a href="http://www.esri.com/python">ESRI’s Python Page</a></li>
 <li><a href="http://www.esri.com/arcpy">arcpy</a></li>
 </ul>
-</section><section id="this" class="slide level2">
-<h1>This</h1>
+</section><section id="self" class="slide level2">
+<h1>self</h1>
 <ul>
 <li><a href="https://github.com/erochest/pygis">The Code</a></li>
 <li><a href="http://www.ericrochester.com/pygis">The Slides</a></li>
@@ -405,6 +375,7 @@ write_diffs(diffs, station_locs, OUTPUT)</code></pre>
 <section><section id="thanks" class="titleslide slide level1"><h1>Thanks</h1></section></section>
     </div>
   </div>
+
 
   <script src="reveal.js/lib/js/head.min.js"></script>
   <script src="reveal.js/js/reveal.min.js"></script>
@@ -430,5 +401,5 @@ write_diffs(diffs, station_locs, OUTPUT)</code></pre>
 //          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 ]});
     </script>
-  </body>
+    </body>
 </html>

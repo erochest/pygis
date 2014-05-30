@@ -5,15 +5,14 @@
 ## The Plan
 
 1.  [Introductions](/pygis/#introductions)
-2.  [What is Python?](/pygis/#python)
-3.  [What Can I Do with It?](/pygis/#what-can-i-do-with-it)
-4.  [A Problem](/pygis/#a-problem)
-5.  [How to Solve It](/pygis/#how-to-solve-it)
-6.  [Downloading Data](/pygis/#downloading-data)
-7.  [Filtering and Fixing Data](/pygis/#filtering-and-fixing-data)
-8.  [Getting Rolling Averages](/pygis/#getting-rolling-averages)
-9.  [Charting Data](/pygis/#charting-data)
-10. [Links and Resources](/pygis/#links-and-resources)
+1.  [What Can I Do with Python?](/pygis/#what-can-i-do-with-python)
+1.  [A Problem](/pygis/#a-problem)
+1.  [How to Solve It](/pygis/#how-to-solve-it)
+1.  [Downloading Data](/pygis/#downloading-data)
+1.  [Filtering and Fixing Data](/pygis/#filtering-and-fixing-data)
+1.  [Getting Rolling Averages](/pygis/#getting-rolling-averages)
+1.  [Charting Data](/pygis/#charting-data)
+1.  [Links and Resources](/pygis/#links-and-resources)
 
 # Introductions
 
@@ -29,49 +28,7 @@
 
 ## Who are you?
 
-# Python
-
-[http://python.org](http://python.org)
-
-## A very high-level language
-
-## Easy to write
-
-Quirky (whitespace matters)
-
-But clear
-
-Not a lot of syntax to remember
-
-## Easy to read
-
-Not a lot of syntax to get in the way
-
-Just verbose enough
-
-## Easy to maintain 
-
-## Let's See Some
-
-``` {.python .fragment}
-print 'hello, world!'
-```
-
-``` {.python .fragment}
-def hello(name):
-    print 'hello, ' + name
-```
-
-``` {.python .fragment}
-for n in range(7):
-    hello('number ' + str(n))
-```
-
-<div class='fragment'>
-There's more, but we won't worry about that now.
-</div>
-
-# What Can I Do with It?
+# What Can I Do with Python?
 
 ## Work with Files
 
@@ -80,7 +37,7 @@ with open('some-file.txt', 'w') as f:
     f.write('hello, world!\n')
 ```
 
-## Work with the Network
+## Download Web Pages
 
 ```python
 import requests
@@ -164,8 +121,6 @@ print freq
 Global Summary of the Day (GSOD)
 
 [ftp://ftp.ncdc.noaa.gov/pub/data/gsod/](ftp://ftp.ncdc.noaa.gov/pub/data/gsod/)
-
-## Code Warning
 
 ## High-Level Plan
 
@@ -284,10 +239,11 @@ def get_stations(history, country):
 
     """
 
-    stations = set()
-    for h in history:
-        if h.country == country:
-            stations.add((h.usaf, h.wban))
+    stations = set(
+        (h.usaf, h.wban)
+        for h in history
+        if h.country == country
+        )
     return stations
 ```
 
@@ -402,7 +358,7 @@ those with experience programming.
 * [ESRI's Python Page](http://www.esri.com/python)
 * [arcpy](http://www.esri.com/arcpy)
 
-## This
+## self
 
 * [The Code](https://github.com/erochest/pygis)
 * [The Slides](http://www.ericrochester.com/pygis)
