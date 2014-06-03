@@ -406,6 +406,7 @@ those with experience programming.
 
 * [The Code](https://github.com/erochest/pygis)
 * [The Slides](http://www.ericrochester.com/pygis)
+* [The Code (Cloud9)](https://c9.io/erochest/pygis)
 
 ## Have a GIS Problem?
 
