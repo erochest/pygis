@@ -58,8 +58,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1>The Plan</h1>
 <ol type="1">
 <li><a href="/pygis/#introductions">Introductions</a></li>
-<li><a href="/pygis/#python">What is Python?</a></li>
-<li><a href="/pygis/#what-can-i-do-with-it">What Can I Do with It?</a></li>
+<li><a href="/pygis/#what-can-i-do-with-python">What Can I Do with Python?</a></li>
 <li><a href="/pygis/#a-problem">A Problem</a></li>
 <li><a href="/pygis/#how-to-solve-it">How to Solve It</a></li>
 <li><a href="/pygis/#downloading-data">Downloading Data</a></li>
@@ -78,36 +77,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section><section id="who-are-you" class="slide level2">
 <h1>Who are you?</h1>
 </section></section>
-<section><section id="python" class="titleslide slide level1"><h1>Python</h1></section><section id="a-very-high-level-language" class="slide level2">
-<h1>A very high-level language</h1>
-</section><section id="easy-to-write" class="slide level2">
-<h1>Easy to write</h1>
-<p>Quirky (whitespace matters)</p>
-<p>But clear</p>
-<p>Not a lot of syntax to remember</p>
-</section><section id="easy-to-read" class="slide level2">
-<h1>Easy to read</h1>
-<p>Not a lot of syntax to get in the way</p>
-<p>Just verbose enough</p>
-</section><section id="easy-to-maintain" class="slide level2">
-<h1>Easy to maintain</h1>
-</section><section id="lets-see-some" class="slide level2">
-<h1>Let’s See Some</h1>
-<pre class="sourceCode python fragment"><code class="sourceCode python"><span class="dt">print</span> <span class="st">&#39;hello, world!&#39;</span></code></pre>
-<pre class="sourceCode python fragment"><code class="sourceCode python"><span class="kw">def</span> hello(name):
-    <span class="dt">print</span> <span class="st">&#39;hello, &#39;</span> + name</code></pre>
-<pre class="sourceCode python fragment"><code class="sourceCode python"><span class="kw">for</span> n in <span class="dt">range</span>(<span class="dv">7</span>):
-    hello(<span class="st">&#39;number &#39;</span> + <span class="dt">str</span>(n))</code></pre>
-<div class="fragment">
-There’s more, but we won’t worry about that now.
-</div>
-</section></section>
-<section><section id="what-can-i-do-with-it" class="titleslide slide level1"><h1>What Can I Do with It?</h1></section><section id="work-with-files" class="slide level2">
+<section><section id="what-can-i-do-with-python" class="titleslide slide level1"><h1>What Can I Do with Python?</h1></section><section id="work-with-files" class="slide level2">
 <h1>Work with Files</h1>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="kw">with</span> <span class="dt">open</span>(<span class="st">&#39;some-file.txt&#39;</span>, <span class="st">&#39;w&#39;</span>) <span class="ch">as</span> f:
     f.write(<span class="st">&#39;hello, world!</span><span class="ch">\n</span><span class="st">&#39;</span>)</code></pre>
-</section><section id="work-with-the-network" class="slide level2">
-<h1>Work with the Network</h1>
+</section><section id="download-web-pages" class="slide level2">
+<h1>Download Web Pages</h1>
 <pre class="sourceCode python"><code class="sourceCode python"><span class="ch">import</span> requests
 r = requests.get(<span class="st">&#39;http://www.google.com&#39;</span>)
 <span class="dt">print</span> r.text[:<span class="dv">20</span>]</code></pre>
@@ -189,8 +164,6 @@ Generate the Map
 <h1>Identify the Source</h1>
 <p>Global Summary of the Day (GSOD)</p>
 <p><a href="ftp://ftp.ncdc.noaa.gov/pub/data/gsod/">ftp://ftp.ncdc.noaa.gov/pub/data/gsod/</a></p>
-</section><section id="code-warning" class="slide level2">
-<h1>Code Warning</h1>
 </section><section id="high-level-plan" class="slide level2">
 <h1>High-Level Plan</h1>
 <pre class="sourceCode python"><code class="sourceCode python">HOST     = <span class="st">&#39;ftp.ncdc.noaa.gov&#39;</span>
@@ -286,10 +259,11 @@ stations = get_stations(history, COUNTRY)
 
 <span class="co">    &quot;&quot;&quot;</span>
 
-    stations = <span class="dt">set</span>()
-    <span class="kw">for</span> h in history:
-        <span class="kw">if</span> h.country == country:
-            stations.add((h.usaf, h.wban))
+    stations = <span class="dt">set</span>(
+        (h.usaf, h.wban)
+        <span class="kw">for</span> h in history
+        <span class="kw">if</span> h.country == country
+        )
     <span class="kw">return</span> stations</code></pre>
 </section><section id="filter-the-data-files" class="slide level2">
 <h1>Filter the Data Files</h1>
@@ -371,7 +345,7 @@ write_diffs(diffs, station_locs, OUTPUT)</code></pre>
 <p>Poor data coverage for this type of analysis</p>
 <p>Some stations don’t really have enough data</p>
 </section></section>
-<section><section id="links-and-resources" class="titleslide slide level1"><h1>Links and Resources</h1></section><section id="python-1" class="slide level2">
+<section><section id="links-and-resources" class="titleslide slide level1"><h1>Links and Resources</h1></section><section id="python" class="slide level2">
 <h1>Python</h1>
 <ul>
 <li><a href="http://python.org">Python Website</a></li>
@@ -386,8 +360,8 @@ write_diffs(diffs, station_locs, OUTPUT)</code></pre>
 <li><a href="http://www.esri.com/python">ESRI’s Python Page</a></li>
 <li><a href="http://www.esri.com/arcpy">arcpy</a></li>
 </ul>
-</section><section id="this" class="slide level2">
-<h1>This</h1>
+</section><section id="self" class="slide level2">
+<h1>self</h1>
 <ul>
 <li><a href="https://github.com/erochest/pygis">The Code</a></li>
 <li><a href="http://www.ericrochester.com/pygis">The Slides</a></li>
