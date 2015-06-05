@@ -34,6 +34,8 @@ def idw(input_layer, z_field):
 
 
 def main():
+    arcpy.CheckOutExtension("GeoStats")
+
     arcpy.env.workspace = arcpy.GetParameterAsText(0)
     data_file = arcpy.GetParameterAsText(1)
     symbology_layer = arcpy.GetParameterAsText(2)
